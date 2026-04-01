@@ -1,0 +1,73 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+# IntelliJ cache
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Kotlin ###
+.kotlin
+*.class
+*.kt~
+*.kts~
+
+### Docker ###
+# コンテナの永続化データは Git 管理しない
+pgdata/
+docker-data/
+*.pid
+
+### Flyway ###
+# マイグレーション SQL は Git 管理するので除外しない
+# db/migration/** は含める
+
+### jOOQ ###
+# 自動生成コードは Git 管理しない（推奨）
+generated/
+src/main/generated/
+
+### Logs ###
+logs/
+*.log
+
+### OS files ###
+.DS_Store
+Thumbs.db
+
