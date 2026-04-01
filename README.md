@@ -15,3 +15,28 @@
   - 生年月日（現在日以前であること）
   - 著者も複数の書籍を執筆できる
 ---
+### ER図
+```mermaid
+erDiagram
+    AUTHOR {
+        bigint id PK
+        string name
+        date birth_date
+    }
+
+    BOOK {
+        bigint id PK
+        string title
+        int price
+        string publishing_status
+        date published_at
+    }
+
+    BOOK_AUTHOR {
+        bigint book_id PK, FK
+        bigint author_id PK, FK
+    }
+
+    AUTHOR ||--o{ BOOK_AUTHOR : writes
+    BOOK ||--o{ BOOK_AUTHOR : has
+```
