@@ -1,11 +1,11 @@
 package dev.tomoki.bookapi.dto
 
-import java.util.*
+import java.time.LocalDate
 
 data class BookDto(
-    val book_id: Long,
-    val title: String,
-    var price: Int,
-    val publishing_status: String,
-    val published_date: Date
+    val bookId: Long?,
+    val title: String?,
+    val price: Int?,
+    val publishingStatus: String?,
+    val publishedDate: LocalDate?
 )

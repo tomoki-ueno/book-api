@@ -10,5 +10,5 @@ class BookRepository(
     private val dsl: DSLContext
 ) {
     fun findAll(): List<BookRecord> =
-        dsl.selectFrom(BOOK).fetch()
+        dsl.selectFrom(BOOK).fetchInto(BookRecord::class.java)
 }

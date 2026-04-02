@@ -11,5 +11,5 @@ class BookController(
     private val service: BookService
 ) {
     @GetMapping
-    fun getBooks() = service.getBooks()
+    fun getBooks() = service.findAll()
 }
