@@ -59,9 +59,9 @@ docker-data/
 # db/migration/** は含める
 
 ### jOOQ ###
-# 自動生成コードは Git 管理しない（推奨）
-generated/
-src/main/generated/
+# 自動生成コード）
+#generated/
+#src/main/generated/
 
 ### Logs ###
 logs/
