@@ -1,0 +1,3 @@
+package dev.tomoki.bookapi.exception
+
+class NotFoundException(message: String) : RuntimeException(message)

@@ -1,0 +1,25 @@
+package dev.tomoki.bookapi.exception
+
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+
+    @ExceptionHandler(NotFoundException::class)
+    fun handleNotFound(e: NotFoundException): ResponseEntity<Map<String, String>> =
+        ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(mapOf("error" to e.message.orEmpty()))
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String?>> {
+        val errors = ex.bindingResult.fieldErrors.associate {
+            it.field to it.defaultMessage
+        }
+        return ResponseEntity.badRequest().body(errors)
+    }
+
+}
