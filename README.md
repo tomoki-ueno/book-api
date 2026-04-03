@@ -14,7 +14,9 @@
   - 名前
   - 生年月日（現在日以前であること）
   - 著者も複数の書籍を執筆できる
+
 ---
+  
 ### 技術スタック
 | 項目 | 内容 |
 |------|------|
@@ -26,11 +28,8 @@
 | マイグレーション | Flyway |
 | コンテナ | Docker Compose |
 
-
 ---
-- DB起動 `docker compose up -d`
 
----
 ### ER図
 ```mermaid
 erDiagram
@@ -58,6 +57,7 @@ erDiagram
 ```
 
 ---
+
 ### 環境セットアップ
 #### 1. DB 起動
 ```bash
@@ -70,7 +70,9 @@ docker compose up -d
 ```bash
 gradle test
 ```
+
 ---
+
 ### 詳細なAPI仕様
 詳細なAPI仕様と実行サンプルは以下のswaggerにて記載しています  
 [book-api(swagger)](https://tomoki-ueno.github.io/book-api/swagger/)

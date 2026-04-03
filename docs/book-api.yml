@@ -138,6 +138,8 @@ paths:
                   message: "出版済みの場合、publishedDate は必須です"
                 - field: "authorIds"
                   message: "著者IDは1件以上必要です"
+                - field: "authorIds"
+                  message: "著者IDが重複しています"
         '404':
           description: 著者が存在しない
 
@@ -184,6 +186,8 @@ paths:
                   message: "出版済みの書籍を未出版に戻すことはできません"
                 - field: "publishedDate"
                   message: "出版済みに更新する場合、publishedDate は必須です"
+                - field: "authorIds"
+                  message: "著者IDが重複しています"
         '404':
           description: 書籍が存在しない
 

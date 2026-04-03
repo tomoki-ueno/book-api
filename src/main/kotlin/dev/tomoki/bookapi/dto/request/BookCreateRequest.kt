@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import org.hibernate.validator.constraints.UniqueElements
 import java.time.LocalDate
 
 @PublishedDateRequired
@@ -25,5 +26,6 @@ data class BookCreateRequest(
 
     @field:NotNull(message = "著者IDは1件以上必要です")
     @field:Size(min = 1, message = "著者IDは1件以上必要です")
+    @field:UniqueElements(message = "著者IDが重複しています")
     val authorIds: List<Long>?
 )

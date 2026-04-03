@@ -3,6 +3,7 @@ package dev.tomoki.bookapi.dto.request
 import dev.tomoki.bookapi.validator.ValidPublishingStatus
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.Size
+import org.hibernate.validator.constraints.UniqueElements
 import java.time.LocalDate
 
 data class BookUpdateRequest(
@@ -18,5 +19,6 @@ data class BookUpdateRequest(
     val publishedDate: LocalDate?,
 
     @field:Size(min = 1, message = "著者IDは1件以上必要です")
+    @field:UniqueElements(message = "著者IDが重複しています")
     val authorIds: List<Long>?
 )
