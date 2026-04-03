@@ -76,3 +76,82 @@ gradle test
 ### 詳細なAPI仕様
 詳細なAPI仕様と実行サンプルは以下のswaggerにて記載しています  
 [book-api(swagger)](https://tomoki-ueno.github.io/book-api/swagger/)
+
+---
+
+### ディレクトリ構造
+```text
+book-api/
+├── build.gradle.kts
+├── settings.gradle.kts
+├── compose.yaml
+├── README.md
+├── .gitignore
+├── .gitattributes
+│
+├── src/
+│   ├── main/
+│   │   └── kotlin/
+│   │       └── dev/
+│   │           └── tomoki/
+│   │               └── bookapi/
+│   │                   ├── BookApiApplication.kt
+│   │                   │
+│   │                   ├── config/
+│   │                   │   └── CorsConfig.kt
+│   │                   │
+│   │                   ├── controller/
+│   │                   │   ├── AuthorController.kt
+│   │                   │   └── BookController.kt
+│   │                   │
+│   │                   ├── dto/
+│   │                   │   ├── request/
+│   │                   │   │   ├── AuthorCreateRequest.kt
+│   │                   │   │   ├── AuthorUpdateRequest.kt
+│   │                   │   │   ├── BookCreateRequest.kt
+│   │                   │   │   └── BookUpdateRequest.kt
+│   │                   │   └── response/
+│   │                   │       ├── AuthorResponse.kt
+│   │                   │       └── BookResponse.kt
+│   │                   │
+│   │                   ├── exception/
+│   │                   │   ├── GlobalExceptionHandler.kt
+│   │                   │   └── NotFoundException.kt
+│   │                   │
+│   │                   ├── repository/
+│   │                   │   ├── AuthorRepository.kt
+│   │                   │   ├── BookAuthorRepository.kt
+│   │                   │   └── BookRepository.kt
+│   │                   │
+│   │                   ├── service/
+│   │                   │   ├── AuthorService.kt
+│   │                   │   └── BookService.kt
+│   │                   │
+│   │                   └── validator/
+│   │                       ├── PublishedDateRequired.kt
+│   │                       ├── PublishedDateRequiredValidator.kt
+│   │                       ├── PublishingStatusConstraintValidator.kt
+│   │                       └── ValidPublishingStatus.kt
+│   │    
+│   └── test/
+│       └── kotlin/
+│           └── dev/
+│               └── tomoki/
+│                   └── bookapi/
+│                       ├── request/
+│                       │   ├── AuthorCreateRequestTest.kt
+│                       │   ├── AuthorUpdateRequestTest.kt
+│                       │   ├── BookCreateRequestValidationTest.kt
+│                       │   └── BookUpdateRequestValidationTest.kt
+│                       │
+│                       ├── service/
+│                       │   ├── AuthorServiceTest.kt
+│                       │   └── BookServiceTest.kt
+│                       │
+│                       └── validator/
+│                           ├── PublishedDateRequiredValidatorTest.kt
+│                           └── PublishingStatusValidatorTest.kt
+│
+└── docs/
+    └── openapi.yml
+```
