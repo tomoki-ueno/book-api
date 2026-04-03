@@ -40,6 +40,9 @@ dependencies {
 	implementation("org.jooq:jooq:3.19.31")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation(kotlin("stdlib-jdk8"))
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+	testImplementation("org.mockito:mockito-inline:5.2.0")
+	testImplementation("org.mockito:mockito-core:5.12.0")
 }
 
 kotlin {
