@@ -1,6 +1,5 @@
 package dev.tomoki.bookapi.dto.request
 
-import dev.tomoki.bookapi.validator.PublishedDateRequired
 import dev.tomoki.bookapi.validator.ValidPublishingStatus
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.Size

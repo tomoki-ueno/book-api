@@ -15,21 +15,37 @@
   - 生年月日（現在日以前であること）
   - 著者も複数の書籍を執筆できる
 ---
+### 技術スタック
+| 項目 | 内容 |
+|------|------|
+| 言語 | Kotlin |
+| フレームワーク | Spring Boot |
+| O/R マッパー | jOOQ |
+| DB | PostgreSQL 16 |
+| Java | 21 |
+| マイグレーション | Flyway |
+| コンテナ | Docker Compose |
+
+
+---
+- DB起動 `docker compose up -d`
+
+---
 ### ER図
 ```mermaid
 erDiagram
     AUTHOR {
-        bigint id PK
+        bigint author_id PK
         string name
         date birth_date
     }
 
     BOOK {
-        bigint id PK
+        bigint book_id PK
         string title
         int price
         string publishing_status
-        date published_at
+        date published_date
     }
 
     BOOK_AUTHOR {
@@ -40,3 +56,21 @@ erDiagram
     AUTHOR ||--o{ BOOK_AUTHOR : writes
     BOOK ||--o{ BOOK_AUTHOR : has
 ```
+
+---
+### 環境セットアップ
+#### 1. DB 起動
+```bash
+docker compose up -d
+```
+#### 2. アプリを起動
+通常の Spring Boot アプリとして起動できます。  
+※初回実行時のみマイグレーションが実行されDBが生成されます
+#### 3. 単体テストを実行
+```bash
+gradle test
+```
+---
+### 詳細なAPI仕様
+詳細なAPI仕様と実行サンプルは以下のswaggerにて記載しています  
+[book-api(swagger)](https://tomoki-ueno.github.io/book-api/swagger/)

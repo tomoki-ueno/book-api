@@ -1,0 +1,330 @@
+openapi: 3.0.3
+info:
+  title: Book Management API
+  version: 1.0.0
+  description: 書籍と著者を管理するバックエンド API
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /authors:
+    post:
+      summary: 著者を登録する
+      tags: [Author]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorCreateRequest'
+      responses:
+        '200':
+          description: 著者を登録しました
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorResponse'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrors'
+              example:
+                - field: "name"
+                  message: "著者名は必須です"
+                - field: "birthDate"
+                  message: "生年月日は必須です"
+                - field: "birthDate"
+                  message: "生年月日は現在日以前である必要があります"
+
+  /authors/{authorId}:
+    put:
+      summary: 著者を更新する
+      tags: [Author]
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorUpdateRequest'
+      responses:
+        '200':
+          description: 著者を更新しました
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorResponse'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrors'
+              example:
+                - field: "name"
+                  message: "著者名は空にできません"
+                - field: "birthDate"
+                  message: "生年月日は現在日以前である必要があります"
+        '404':
+          description: 著者が存在しない
+
+  /authors/{authorId}/books:
+    get:
+      summary: 著者に紐づく書籍一覧を取得する
+      tags: [Author]
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: 書籍一覧を返却します
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookResponse'
+        '404':
+          description: 著者が存在しない
+
+  /books:
+    post:
+      summary: 書籍を登録する
+      tags: [Book]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookCreateRequest'
+      responses:
+        '201':
+          description: 書籍を登録しました
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResponse'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrors'
+              example:
+                - field: "title"
+                  message: "タイトルは必須です"
+                - field: "price"
+                  message: "価格は必須です"
+                - field: "price"
+                  message: "価格は0以上である必要があります"
+                - field: "publishingStatus"
+                  message: "出版ステータスは必須です"
+                - field: "publishingStatus"
+                  message: "出版ステータスが不正です"
+                - field: "publishedDate"
+                  message: "出版済みの場合、publishedDate は必須です"
+                - field: "authorIds"
+                  message: "著者IDは1件以上必要です"
+        '404':
+          description: 著者が存在しない
+
+  /books/{bookId}:
+    put:
+      summary: 書籍を更新する
+      tags: [Book]
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookUpdateRequest'
+      responses:
+        '200':
+          description: 書籍を更新しました
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResponse'
+        '400':
+          description: バリデーションエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrors'
+              example:
+                - field: "title"
+                  message: "タイトルは空にできません"
+                - field: "price"
+                  message: "価格は0以上である必要があります"
+                - field: "publishingStatus"
+                  message: "出版ステータスが不正です"
+                - field: "authorIds"
+                  message: "著者IDは1件以上必要です"
+                - field: "publishingStatus"
+                  message: "出版済みの書籍を未出版に戻すことはできません"
+                - field: "publishedDate"
+                  message: "出版済みに更新する場合、publishedDate は必須です"
+        '404':
+          description: 書籍が存在しない
+
+components:
+  schemas:
+
+    # -----------------------------
+    # Author
+    # -----------------------------
+    AuthorCreateRequest:
+      type: object
+      required: [name, birthDate]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          example: "太宰治"
+        birthDate:
+          type: string
+          format: date
+          example: "1909-06-19"
+
+    AuthorUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          example: "太宰 治"
+        birthDate:
+          type: string
+          format: date
+          example: "1909-06-19"
+
+    AuthorResponse:
+      type: object
+      properties:
+        authorId:
+          type: integer
+        name:
+          type: string
+        birthDate:
+          type: string
+          format: date
+
+    # -----------------------------
+    # Book
+    # -----------------------------
+    BookCreateRequest:
+      type: object
+      required: [title, price, publishingStatus, authorIds]
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: "人間失格"
+        price:
+          type: integer
+          minimum: 1
+          example: 880
+        publishingStatus:
+          type: string
+          enum: [UNPUBLISHED, PUBLISHED]
+          example: "PUBLISHED"
+        publishedDate:
+          type: string
+          format: date
+          nullable: true
+          example: "1948-07-25"
+        authorIds:
+          type: array
+          minItems: 1
+          example: [1]
+          items:
+            type: integer
+
+    BookUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: "人間失格（新装版）"
+        price:
+          type: integer
+          minimum: 1
+          example: 990
+        publishingStatus:
+          type: string
+          enum: [UNPUBLISHED, PUBLISHED]
+          example: "PUBLISHED"
+        publishedDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2026-04-03"
+        authorIds:
+          type: array
+          minItems: 1
+          example: [1, 2]
+          items:
+            type: integer
+
+    BookResponse:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        price:
+          type: integer
+          nullable: true
+        publishingStatus:
+          type: string
+          nullable: true
+        publishedDate:
+          type: string
+          format: date
+          nullable: true
+        authorIds:
+          type: array
+          items:
+            type: integer
+
+    # -----------------------------
+    # ValidationError
+    # -----------------------------
+    ValidationError:
+      type: object
+      properties:
+        field:
+          type: string
+          example: "title"
+        message:
+          type: string
+          example: "must not be blank"
+
+    ValidationErrors:
+      type: array
+      items:
+        $ref: '#/components/schemas/ValidationError'
